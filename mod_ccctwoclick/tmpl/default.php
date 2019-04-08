@@ -2,8 +2,6 @@
 // No direct access
 defined('_JEXEC') or die;
 
-// $contentBefore = str_replace(array("\r", "\n"), '', $contentBefore);
-
 $contentBefore = '<div class="tccontentbefore tccontentbefore-' . $moduleId . '">' . $contentBefore .'</div>';
 $contentAfter = '<div class="tccontentafter tccontentafter-' . $moduleId . '" style="display:none;">' . $contentAfter .'</div>';
 
