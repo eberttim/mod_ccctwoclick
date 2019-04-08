@@ -13,7 +13,7 @@ $btnDisable = '<div class="' . $btnclassDisable . ' tcdisable tcdisable-' . $mod
 ?>
 
 <div class="tccontainer tccontainer-<?php echo $moduleId; ?> mx-auto <?php echo $moduleclass_sfx; ?>"
-     style="width: <?php echo $iwidth; ?>; margin:0 auto;">
+     style="max-width: 100%; width: <?php echo $iwidth; ?>; margin:0 auto;">
 
 	<?php
 	echo ($contentbeforepos == 'top' ? $contentBefore : '');
@@ -28,7 +28,7 @@ $btnDisable = '<div class="' . $btnclassDisable . ' tcdisable tcdisable-' . $mod
 	     data-height="<?php echo $iheight; ?>"
 	     data-title="<?php echo $iframetitle; ?>"
 	     data-name="<?php echo $iframename; ?>"
-	     style="<?php echo 'width:' . $iwidth . '; min-height:' . $iheight . ';';
+	     style="<?php echo 'min-height:' . $iheight . ';';
 	     echo ($disabledimage ? 'background-image:url(' . $disabledimage . '); background-repeat: no-repeat; background-size:' . $backgroundsize . ';' : '');
 	     echo ($disabledcolor ? 'background-color:' . $disabledcolor . ';' : ''); ?> ">
 
@@ -38,7 +38,7 @@ $btnDisable = '<div class="' . $btnclassDisable . ' tcdisable tcdisable-' . $mod
     ?>
 
     <div class="tciframecontainer tciframecontainer-<?php echo $moduleId; ?>"
-      style="width: <?php echo $iwidth; ?>; height: <?php echo $iheight; ?>; display: none;"></div>
+      style="height: <?php echo $iheight; ?>; display: none;"></div>
 
 	</div>
 

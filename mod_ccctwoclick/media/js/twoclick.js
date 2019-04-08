@@ -51,8 +51,8 @@
 
             iframe.setAttribute('title', content.dataset.title);
             iframe.setAttribute('name', content.dataset.name);
-            iframe.setAttribute('width', content.dataset.width);
-            iframe.setAttribute('height', content.dataset.height);
+            iframe.setAttribute('width', '100%');
+            iframe.setAttribute('height', '100%');
 
             iframe.setAttribute('src', content.dataset.source);
 
