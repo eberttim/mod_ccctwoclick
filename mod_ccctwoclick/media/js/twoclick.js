@@ -58,6 +58,7 @@
 
             iframecontainer.innerHTML = "";
             iframecontainer.appendChild(iframe);
+            iframecontainer.style.display = 'block';
 
             contentbefore.style.display = 'none';
             reveal.style.display = 'none';
@@ -66,6 +67,7 @@
             disable.style.display = 'block';
           } else {
             iframecontainer.innerHTML = "";
+            iframecontainer.style.display = 'none';
 
             contentbefore.style.display = 'block';
             reveal.style.display = 'block';

@@ -12,7 +12,7 @@ $btnDisable = '<div class="' . $btnclassDisable . ' tcdisable tcdisable-' . $mod
 
 ?>
 
-<div class="tccontainer tccontainer-<?php echo $moduleId; ?> <?php echo $moduleclass_sfx; mx-auto?>"
+<div class="tccontainer tccontainer-<?php echo $moduleId; ?> mx-auto <?php echo $moduleclass_sfx; ?>"
      style="width: <?php echo $iwidth; ?>; margin:0 auto;">
 
 	<?php
@@ -37,7 +37,8 @@ $btnDisable = '<div class="' . $btnclassDisable . ' tcdisable tcdisable-' . $mod
     echo ($btnrevpos == 'center' ? $btnReveal : '');
     ?>
 
-    <div class="tciframecontainer tciframecontainer-<?php echo $moduleId; ?>"></div>
+    <div class="tciframecontainer tciframecontainer-<?php echo $moduleId; ?>"
+      style="width: <?php echo $iwidth; ?>; height: <?php echo $iheight; ?>; display: none;"></div>
 
 	</div>
 
