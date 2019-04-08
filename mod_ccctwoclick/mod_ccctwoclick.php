@@ -37,5 +37,8 @@ $stylesheet = $params->get('stylesheet', "yes");
 $moduleId = $module->id;
 $moduleclass_sfx = $params->get('moduleclass_sfx', '');
 
+$doc = JFactory::getDocument();
+$doc->addStyleSheet('modules/mod_ccctwoclick/media/css/twoclick.css');
+$doc->addScript('modules/mod_ccctwoclick/media/js/twoclick.js');
 
 require ModuleHelper::getLayoutPath('mod_ccctwoclick', $params->get('layout', 'default'));
