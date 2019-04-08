@@ -2,88 +2,103 @@
   document.addEventListener('DOMContentLoaded', function () {
     (function () {
 
-      let tccontainer = document.getElementById("tccontainer-<?php echo $moduleId; ?>");
-
-      let content = document.getElementById("tccontent-<?php echo $moduleId; ?>");
-      let iframecontainer = document.getElementById("tciframecontainer-<?php echo $moduleId; ?>");
-      let enable = document.getElementById("tcreveal-<?php echo $moduleId; ?>");
-      let enablebtn = document.getElementById("tcrevealbtn-<?php echo $moduleId; ?>");
-      let disable = document.getElementById("tcdisable-<?php echo $moduleId; ?>");
-      let disablebtn = document.getElementById("tcdisablebtn-<?php echo $moduleId; ?>");
-      let contentafter = document.getElementById("tccontentafter-<?php echo $moduleId; ?>");
-      let contentbefore = document.getElementById("tccontentbefore-<?php echo $moduleId; ?>");
-
-      const origin = (new URL("<?php echo $isrc; ?>", window.location.href)).origin;
-
       function isLocalStorageAvailable() {
         return (typeof window.localStorage) !== 'undefined';
       }
 
-      function setTwoClickState(enabled) {
+      function setTwoClickState(origin, enabled) {
         if (!isLocalStorageAvailable()) return;
 
-        let state = JSON.parse(window.localStorage.getItem('tcstate') || '{}') || {};
+        let state = JSON.parse(window.localStorage.getItem('tcstate') || '{}') || {};
         state[origin] = enabled === true;
 
         window.localStorage.setItem('tcstate', JSON.stringify(state));
       }
 
-      function getTwoClickState(enabled) {
+      function getTwoClickState(origin) {
         if (!isLocalStorageAvailable()) return false;
 
         const state = JSON.parse(window.localStorage.getItem('tcstate') || '{}') || {};
         return state[origin] === true;
       }
 
-      function enableContent(enabled) {
-        if (enabled === true){
-          let iframe = document.createElement("iframe");
+      function setContentEnabled(origin, enabled) {
+        setTwoClickState(origin, enabled === true);
 
-          iframe.setAttribute('frameborder', '0');
-          iframe.setAttribute('allowfullscreen', 'true');
-          iframe.setAttribute('allowtransparency', 'true');
-          iframe.setAttribute('scrolling', 'no');
-          iframe.setAttribute('title', '<?php echo $iframetitle; ?>');
+        let tccontainers = document.querySelectorAll(".tccontainer");
 
-          iframe.setAttribute('name', '<?php echo $iframename; ?>');
-          iframe.setAttribute('width', content.dataset.width);
-          iframe.setAttribute('height', content.dataset.height);
+        for (var i = 0; i < tccontainers.length; i++) {
+          let tccontainer = tccontainers[i];
 
-          iframe.setAttribute('src', content.dataset.source);
+          let content = tccontainer.querySelector(".tccontent");
 
-          iframecontainer.innerHTML = "";
-          iframecontainer.appendChild(iframe);
+          if (content.dataset.origin !== origin)
+            continue;
 
-          contentbefore.style.display = 'none';
-          enable.style.display = 'none';
+          let iframecontainer = tccontainer.querySelector(".tciframecontainer");
+          let reveal = tccontainer.querySelector(".tcreveal");
+          let disable = tccontainer.querySelector(".tcdisable");
+          let contentafter = tccontainer.querySelector(".tccontentafter");
+          let contentbefore = tccontainer.querySelector(".tccontentbefore");
 
-          contentafter.style.display = 'block';
-          disable.style.display = 'block';
+          if (enabled === true) {
+            let iframe = document.createElement("iframe");
 
-          setTwoClickState(true);
-        } else {
-          iframecontainer.innerHTML = "";
+            iframe.setAttribute('frameborder', '0');
+            iframe.setAttribute('allowfullscreen', 'true');
+            iframe.setAttribute('allowtransparency', 'true');
+            iframe.setAttribute('scrolling', 'no');
 
-          contentbefore.style.display = 'block';
-          enable.style.display = 'block';
+            iframe.setAttribute('title', content.dataset.title);
+            iframe.setAttribute('name', content.dataset.name);
+            iframe.setAttribute('width', content.dataset.width);
+            iframe.setAttribute('height', content.dataset.height);
 
-          disable.style.display = 'none';
-          contentafter.style.display = 'none';
+            iframe.setAttribute('src', content.dataset.source);
 
-          setTwoClickState(false);
+            iframecontainer.innerHTML = "";
+            iframecontainer.appendChild(iframe);
+
+            contentbefore.style.display = 'none';
+            reveal.style.display = 'none';
+
+            contentafter.style.display = 'block';
+            disable.style.display = 'block';
+          } else {
+            iframecontainer.innerHTML = "";
+
+            contentbefore.style.display = 'block';
+            reveal.style.display = 'block';
+
+            disable.style.display = 'none';
+            contentafter.style.display = 'none';
+          }
         }
       }
 
-      enablebtn.addEventListener("click", function (event) {
-        enableContent(true);
-      });
+      let tccontainers = document.querySelectorAll(".tccontainer");
 
-      disablebtn.addEventListener("click", function () {
-        enableContent(false);
-      });
+      for (var i = 0; i < tccontainers.length; i++) {
+        let tccontainer = tccontainers[i];
 
-      if (getTwoClickState()){
-        enableContent(true);
+        let content = tccontainer.querySelector(".tccontent");
+        let enablebtn = tccontainer.querySelector(".tcrevealbtn");
+        let disablebtn = tccontainer.querySelector(".tcdisablebtn");
+
+        const origin = (new URL(content.dataset.source, window.location.href)).origin;
+        content.dataset.origin = origin;
+
+        enablebtn.addEventListener("click", function (event) {
+          setContentEnabled(origin, true);
+        });
+
+        disablebtn.addEventListener("click", function () {
+          setContentEnabled(origin, false);
+        });
+
+        if (getTwoClickState(origin)) {
+          setContentEnabled(origin, true);
+        }
       }
 
     })();
