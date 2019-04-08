@@ -16,6 +16,7 @@
 	</files>
 	<media destination="mod_ccctwoclick" folder="media">
 		<folder>css</folder>
+		<folder>js</folder>
 	</media>
 	<config>
 		<fields name="params">
@@ -318,7 +319,7 @@
 	</languages>
 
 	<updateservers>
-		<server type="extension" name="mod_ccctwoclick Update Site">https://raw.githubusercontent.com/coolcat-creations/mod_ccctwoclick/master/manifest.xml</server>
+		<server type="extension" name="mod_ccctwoclick Update Site">https://raw.githubusercontent.com/eberttim/mod_ccctwoclick/master/manifest.xml</server>
 	</updateservers>
 
 </extension>
